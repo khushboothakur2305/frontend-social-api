@@ -1,10 +1,10 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-var cors = require("cors");
-var jwt = require("express-jwt");
-var compression = require("compression");
-require("dotenv").config();
+var express = require('express');
+var bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+var cors = require('cors');
+var jwt = require('express-jwt');
+var compression = require('compression');
+require('dotenv').config();
 mongoose.Promise = global.Promise;
 
 const { DB_URI, JWT_SECRET, PORT = 3000 } = process.env;
@@ -14,86 +14,86 @@ app.use(bodyParser.json());
 app.use(compression());
 
 mongoose
-  .connect(DB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
-  .then(() => {
-    console.log("Successfully connected to the database");
-  })
-  .catch((err) => {
-    console.log("Could not connect to the database. Exiting now...", err);
-    process.exit();
-  });
+	.connect(DB_URI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false,
+	})
+	.then(() => {
+		console.log('Successfully connected to the database');
+	})
+	.catch((err) => {
+		console.log('Could not connect to the database. Exiting now...', err);
+		process.exit();
+	});
 
 /*  heartbeat
  */
-app.get("/", function (req, res) {
-  res.status(200).json({ message: "Welcome to Frontend Social API! v1" });
+app.get('/', function (req, res) {
+	res.status(200).json({ message: 'Welcome to Frontend Social API! v1' });
 });
 
-require("./routes/auth.routes.js")(app);
-require("./routes/job-read.routes.js")(app);
-require("./routes/city.routes.js")(app);
-require("./routes/event-read.routes.js")(app);
-require("./routes/article-read.routes.js")(app);
-require("./routes/tool-read.routes.js")(app);
-require("./routes/skill.routes.js")(app);
-require("./routes/newsletter.routes.js")(app);
-require("./routes/user.routes.js")(app);
-require("./routes/comment-read.routes.js")(app);
-require("./routes/meeting-read.routes.js")(app);
-require("./routes/course-read.routes.js")(app);
-require("./routes/quiz-participants-read.routes.js")(app);
-require("./routes/user-page-read.routes.js")(app);
-require("./routes/blog-read.routes.js")(app);
-require("./routes/podcast-read.routes.js")(app);
-require("./routes/quizRun-read.routes.js")(app);
-require("./routes/quiz-read.routes.js")(app);
-require("./routes/freelanceJobApply-read.routes.js")(app);
-require("./routes/quizRunSubmission-read.routes.js")(app);
-require("./routes/freelancing-read.routes.js")(app);
-require("./routes/freelancerProjects-read.routes.js")(app);
-require("./routes/challenge-read.routes.js")(app);
-require("./routes/submission-read.routes.js")(app);
-require("./routes/vlog-read.routes.js")(app);
-require("./routes/user-activity-read.routes.js")(app);
-require("./routes/tip-read.routes.js")(app);
-require("./routes/feedback.routes.js")(app);
+require('./routes/auth.routes.js')(app);
+require('./routes/job-read.routes.js')(app);
+require('./routes/city.routes.js')(app);
+require('./routes/event-read.routes.js')(app);
+require('./routes/article-read.routes.js')(app);
+require('./routes/tool-read.routes.js')(app);
+require('./routes/skill.routes.js')(app);
+require('./routes/newsletter.routes.js')(app);
+require('./routes/user.routes.js')(app);
+require('./routes/comment-read.routes.js')(app);
+require('./routes/meeting-read.routes.js')(app);
+require('./routes/course-read.routes.js')(app);
+require('./routes/quiz-participants-read.routes.js')(app);
+require('./routes/user-page-read.routes.js')(app);
+require('./routes/blog-read.routes.js')(app);
+require('./routes/podcast-read.routes.js')(app);
+require('./routes/quizRun-read.routes.js')(app);
+require('./routes/quiz-read.routes.js')(app);
+require('./routes/freelanceJobApply-read.routes.js')(app);
+require('./routes/quizRunSubmission-read.routes.js')(app);
+require('./routes/freelancing-read.routes.js')(app);
+require('./routes/freelancerProjects-read.routes.js')(app);
+require('./routes/challenge-read.routes.js')(app);
+require('./routes/submission-read.routes.js')(app);
+require('./routes/vlog-read.routes.js')(app);
+require('./routes/user-activity-read.routes.js')(app);
+require('./routes/tip-read.routes.js')(app);
+require('./routes/feedback.routes.js')(app);
 
 // this will attach the logged in user to req.user
-app.use(jwt({ secret: JWT_SECRET, algorithms: ["HS256"] }));
+app.use(jwt({ secret: JWT_SECRET, algorithms: ['HS256'] }));
 
-require("./routes/job-write.routes.js")(app);
-require("./routes/event-write.routes.js")(app);
-require("./routes/article-write.routes.js")(app);
-require("./routes/tool-write.routes.js")(app);
-require("./routes/profile.routes.js")(app);
-require("./routes/comment-write.routes.js")(app);
-require("./routes/vote-write.routes.js")(app);
-require("./routes/vote-read.routes.js")(app);
-require("./routes/user-page-write.routes.js")(app);
-require("./routes/quiz-participants-write.routes.js")(app);
-require("./routes/user-activity-write.routes.js")(app);
-require("./routes/meeting-write.routes.js")(app);
-require("./routes/course-write.routes.js")(app);
-require("./routes/freelancing-write.routes.js")(app);
-require("./routes/freelanceJobApply-write.routes.js")(app);
-require("./routes/freelancerProjects-write.routes.js")(app);
-require("./routes/podcast-write.routes.js")(app);
-require("./routes/blog-write.routes.js")(app);
-require("./routes/quiz-write.routes.js")(app);
-require("./routes/quizRun-write.routes.js")(app);
-require("./routes/quizRunSubmission-write.routes.js")(app);
-require("./routes/challenge-write.routes.js")(app);
-require("./routes/submission-write.routes.js")(app);
-require("./routes/reward-points-write.routes.js")(app);
-require("./routes/vlog-write.routes.js")(app);
-require("./routes/tip-write.routes.js")(app);
+require('./routes/job-write.routes.js')(app);
+require('./routes/event-write.routes.js')(app);
+require('./routes/article-write.routes.js')(app);
+require('./routes/tool-write.routes.js')(app);
+require('./routes/profile.routes.js')(app);
+require('./routes/comment-write.routes.js')(app);
+require('./routes/vote-write.routes.js')(app);
+require('./routes/vote-read.routes.js')(app);
+require('./routes/user-page-write.routes.js')(app);
+require('./routes/quiz-participants-write.routes.js')(app);
+require('./routes/user-activity-write.routes.js')(app);
+require('./routes/meeting-write.routes.js')(app);
+require('./routes/course-write.routes.js')(app);
+require('./routes/freelancing-write.routes.js')(app);
+require('./routes/freelanceJobApply-write.routes.js')(app);
+require('./routes/freelancerProjects-write.routes.js')(app);
+require('./routes/podcast-write.routes.js')(app);
+require('./routes/blog-write.routes.js')(app);
+require('./routes/quiz-write.routes.js')(app);
+require('./routes/quizRun-write.routes.js')(app);
+require('./routes/quizRunSubmission-write.routes.js')(app);
+require('./routes/challenge-write.routes.js')(app);
+require('./routes/submission-write.routes.js')(app);
+require('./routes/reward-points-write.routes.js')(app);
+require('./routes/vlog-write.routes.js')(app);
+require('./routes/tip-write.routes.js')(app);
 
 app.listen(PORT, () => {
-  console.log("Server is listening on port " + PORT);
+	console.log('Server is listening on port ' + PORT);
 });
 
 module.exports = app;
